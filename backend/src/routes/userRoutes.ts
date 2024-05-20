@@ -197,7 +197,6 @@ router.get('/presignedUrl', authMiddleware, async (req, res) => {
     },
     Expires: 3600,
   })
-  console.log({ url, fields })
   res.json({
     preSignedUrl: url,
     fields,
@@ -220,7 +219,6 @@ router.post('/signin', async (req, res) => {
     const newUser = await prismaClient.user.create({
       data: { address: req.body.address },
     })
-    console.log(newUser)
     const token = jwt.sign({ userId: newUser.id }, JWT_SECRET)
     res.json({ token })
   }

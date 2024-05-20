@@ -3,10 +3,24 @@ import { BACKEND_URL } from '@/utils'
 import { useMbWallet } from '@mintbase-js/react'
 import axios from 'axios'
 import { utils } from 'near-api-js'
+import { useEffect } from 'react'
 
 export const NearWalletConnector = () => {
   const { isConnected, selector, connect, activeAccountId } = useMbWallet()
 
+  useEffect(() => {
+    if (activeAccountId) {
+      setToken()
+    }
+  }, [activeAccountId])
+
+  const setToken = async () => {
+    const response = await axios.post(`${BACKEND_URL}/v1/worker/signin`, {
+      address: activeAccountId,
+    })
+    console.log(response.data)
+    localStorage.setItem('token', response.data.token)
+  }
   const handleSignout = async () => {
     const wallet = await selector.wallet()
     return wallet.signOut()

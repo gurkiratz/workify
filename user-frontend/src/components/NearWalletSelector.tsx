@@ -2,7 +2,8 @@
 import { BACKEND_URL } from '@/utils'
 import { useMbWallet } from '@mintbase-js/react'
 import axios from 'axios'
-import { utils } from 'near-api-js'
+import { ConnectedWalletAccount, utils } from 'near-api-js'
+import { useEffect } from 'react'
 
 export const NearWalletConnector = () => {
   const { isConnected, selector, connect, activeAccountId } = useMbWallet()
@@ -13,12 +14,7 @@ export const NearWalletConnector = () => {
   }
 
   const handleSignIn = async () => {
-    console.log(activeAccountId)
-    const response = await axios.post(`${BACKEND_URL}/v1/user/signin`, {
-      address: activeAccountId,
-    })
-    localStorage.setItem('token', response.data.token)
-    return connect()
+    await connect()
   }
 
   const handleTransfer = async () => {
@@ -44,6 +40,20 @@ export const NearWalletConnector = () => {
     }
   }
 
+  useEffect(() => {
+    if (activeAccountId) {
+      setToken()
+    }
+  }, [activeAccountId])
+
+  const setToken = async () => {
+    const response = await axios.post(`${BACKEND_URL}/v1/user/signin`, {
+      address: activeAccountId,
+    })
+    console.log(response.data)
+    localStorage.setItem('token', response.data.token)
+  }
+
   if (!isConnected) {
     return (
       <button
@@ -63,7 +73,7 @@ export const NearWalletConnector = () => {
           className="bg-white text-black rounded p-3 hover:bg-[#e1e1e1]"
           onClick={handleSignout}
         >
-          Disconnec
+          Disconnect
         </button>
       </div>
     </div>

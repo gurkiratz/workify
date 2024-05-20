@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { BACKEND_URL } from '@/utils'
 import Link from 'next/link'
+import { NearWalletConnector } from './NearWalletSelector'
 
 export const Appbar = () => {
   // const { publicKey, signMessage } = useWallet()
@@ -36,45 +37,6 @@ export const Appbar = () => {
       </div>
       <div className="text-xl pr-4 pb-2">
         <NearWalletConnector />
-      </div>
-    </div>
-  )
-}
-
-function NearWalletConnector() {
-  const { isConnected, selector, connect, activeAccountId } = useMbWallet()
-
-  const handleSignout = async () => {
-    const wallet = await selector.wallet()
-    return wallet.signOut()
-  }
-
-  const handleSignIn = async () => {
-    return connect()
-  }
-
-  if (!isConnected) {
-    return (
-      <button
-        className="bg-white text-black rounded p-3 hover:bg-[#e1e1e1]"
-        onClick={handleSignIn}
-      >
-        Connect To NEAR
-      </button>
-    )
-  }
-
-  return (
-    <div>
-      <p>You are connected as {activeAccountId}</p>
-      <div className="flex justify-center items-center mt-4">
-        <button
-          className="bg-white text-black rounded p-3 hover:bg-[#e1e1e1]"
-          onClick={handleSignout}
-        >
-          {' '}
-          Disconnect{' '}
-        </button>
       </div>
     </div>
   )

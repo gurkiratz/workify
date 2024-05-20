@@ -162,7 +162,7 @@ router.get('/nextTask', workerMiddleware, async (req, res) => {
 })
 
 router.post('/signin', async (req, res) => {
-  const { publicKey, signature } = req.body
+  const { address, signature } = req.body
   const message = new TextEncoder().encode(
     'Sign into mechanical turks as a worker'
   )
@@ -181,7 +181,7 @@ router.post('/signin', async (req, res) => {
 
   const existingUser = await prismaClient.worker.findFirst({
     where: {
-      address: publicKey,
+      address,
     },
   })
 
@@ -200,7 +200,7 @@ router.post('/signin', async (req, res) => {
   } else {
     const user = await prismaClient.worker.create({
       data: {
-        address: publicKey,
+        address,
         pending_amount: 0,
         locked_amount: 0,
       },
