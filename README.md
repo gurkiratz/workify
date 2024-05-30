@@ -1,4 +1,8 @@
-# Workify
+# Workify ⚒
+
+[![Hawk Hacks 2024](https://img.shields.io/badge/Hawk%20Hacks%202024-red)](https://hawkhacks.ca/)
+[![MLH](https://img.shields.io/badge/MLH-yellow)](https://mlh.io/)
+[![TAIKAI](https://img.shields.io/badge/TAIKAI-purple)](https://taikai.network/hackbox/hackathons/hawkhacks/projects/clwd07nvc0cmiz901eq354ofp/idea)
 
 [TAIKAI](https://taikai.network/hackbox/hackathons/hawkhacks/projects/clwd07nvc0cmiz901eq354ofp/idea)
 
